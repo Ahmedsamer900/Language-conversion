@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول الكلمات إلى فيديوهات</title>
+    
+    <style>
+
+        
+        /* إعدادات الجسم والخلفية */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            overflow: hidden;
+        }
+
+        /* أنيميشن للخلفية */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* عناصر متحركة في الخلفية */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        /* إعدادات الأنيميشن للعناصر */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* العنوان */
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* الحقول والأزرار */
+        input, button {
+            padding: 10px 15px;
+            font-size: 18px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        input {
+            width: 300px;
+            border: 2px solid #fff;
+            color: #333;
+        }
+
+        button {
+            background-color: #ff5722;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+            transform: scale(1.1);
+        }
+
+        /* إعدادات الفيديو */
+        video {
+            margin-top: 20px;
+            max-width: 80%;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    
+        #videoContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #signVideo {
+            display: none;
+            max-width: 80%;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    
+</head>
+<body>
+    <!-- عناصر متحركة في الخلفية -->
+    <div class="circle" style="width: 100px; height: 100px; top: 10%; left: 20%;"></div>
+    <div class="circle" style="width: 150px; height: 150px; top: 40%; right: 15%;"></div>
+    <div class="circle" style="width: 50px; height: 50px; bottom: 20%; left: 10%;"></div>
+
+    <h1>محول الكلمات إلى فيديوهات</h1>
+    <p style="color: #fff;">اكتب كلمة بالعربية ليظهر الفيديو المرتبط بها.</p>
+    <input type="text" id="wordInput" placeholder="اكتب الكلمة هنا...">
+    <button onclick="showVideo()">عرض الفيديو</button>
+    <div id="videoContainer">
+        <video id="signVideo" controls style="display: none;">
+            <source id="videoSource" src="" type="video/mp4">
+            المتصفح الخاص بك لا يدعم تشغيل الفيديو.
+        </video>
+    </div>
+    <script>
+        // خريطة الكلمات والفيديوهات
+        const videos = {
+    "بنت":  "./1.mp4", 
+    "انسان": "./3.mp4",
+    "رجل": "./4.mp4",
+    "ولد": "./2.mp4",
+    "امرأة": "./5.mp4",
+    "طفل": "./6.mp4",
+    "رجل 2": "./رجل 2.mp4",
+    "بنت 2": "./بنت 2.mp4",
+    "ولد 2": "./ولد 2.mp4",
+    "": "./.mp4",
+    "": "./.mp4",
+
+
+};
+
+        function showVideo() {
+            const inputWord = document.getElementById("wordInput").value.trim();
+            const videoPath = videos[inputWord];
+
+            const videoContainer = document.getElementById("videoContainer");
+            const signVideo = document.getElementById("signVideo");
+            const videoSource = document.getElementById("videoSource");
+
+            if (videoPath) {
+                videoSource.src = videoPath;
+                signVideo.style.display = "block";
+                signVideo.load();
+                signVideo.play();
+            } else {
+                signVideo.style.display = "none";
+                alert("لا يوجد فيديو لهذه الكلمة. يمكنك تحديث القائمة!");
+            }
+        }
+    </script>
+</body>
+</html>
